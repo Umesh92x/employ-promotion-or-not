@@ -1,48 +1,5 @@
-# importing libraries
-import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
-from sklearn.preprocessing import Imputer
-import seaborn as sns
-
-#training
-dataset=pd.read_csv('train.csv')
-all_column=dataset.columns
-data_des=dataset.describe()
-
-X= dataset.drop(['is_promoted'],axis=1)
-X=X.drop(['employee_id','region'],axis=1)
-XX=dataset.iloc[:,-1].values
-
-y=dataset['is_promoted']
-
-
-data_des=X.describe()
-
-# **********************************************************
-'''                                 FILLING NAN VALUES                         '''
-nan_values=X.isna().sum()
-#eduction_caterogies=X.groupby('education').count()
-#departement_categories=X.groupby('department').count()
-
-edu_count=X['education'].value_counts()
-max_id=edu_count.idxmax()
-
-X['department'].value_counts()
-y.value_counts()
-#pd.core.categorical.Categorical.fillna()
-
-X['education']=X['education'].fillna(max_id)
-
-mean_of_rating=int(X['previous_year_rating'].mean())
-
-X['previous_year_rating']=X['previous_year_rating'].fillna(mean_of_rating)
-
-data_des=X.describe()
-
-# *********************************************************************
 '''                               VISUALISATION                        '''
-
+#                     VISAUALISATION BETWEEN CATEGORICAL DATA AND QUANTITITY DATA
 X['department'].value_counts().plot(kind='bar')
 X['education'].value_counts().plot(kind='bar')
 X['gender'].value_counts().plot(kind='bar')
