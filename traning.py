@@ -19,8 +19,6 @@ X=X.drop(['employee_id','region','recruitment_channel','gender'],axis=1)
 XX=dataset.iloc[:,-1].values
 
 y=dataset['is_promoted']
-
-
 data_des=X.describe()
 
 # **********************************************************
@@ -53,8 +51,6 @@ X1=X1.drop(['education_Below Secondary'],axis=1)
 #X1=X1.drop(['awards_won?'],axis=1)
 
 #X1=X1.drop(['region_region_1'],axis=1)
-
-
 X1=X1.drop(['age'],axis=1)
 X1=X1.drop(['length_of_service'],axis=1)
 X1=X1.drop(['department_Finance'],axis=1)
@@ -64,18 +60,11 @@ X1=X1.drop(['department_Legal'],axis=1)
 X1=X1.drop(['gender_f'],axis=1)
 X1=X1.drop(["education_Master's & above"],axis=1)
 
-
-'''   ********************************************************************  '''
 #onehot=OneHotEncoder(categorical_features='all')
 #X=onehot.fit_transform(X['department']).toarray()
-2,4,9,17,18,19
-
 X_train, X_test, y_train, y_test = train_test_split(X1, y,
                                                     stratify=y, 
                                                     test_size=0.20,random_state=42)
-
-X_train,X_test,y_train,y_test=train_test_split(X1,y,test_size=.15,random_state=42)
-
 
 from xgboost import XGBClassifier
 from sklearn.metrics import accuracy_score,f1_score,confusion_matrix,precision_score,recall_score
@@ -104,11 +93,9 @@ GBM_model.fit(X_train,y_train)
 y_pred_GBM=GBM_model.predict(X_test)
 accuracy_score(y_test,y_pred_GBM)
 
-
+# In the sense Random forest give best F1 score.
 from sklearn.ensemble import RandomForestClassifier
 forest_classifier=RandomForestClassifier(n_estimators=500,criterion='entropy',verbose=1,random_state=0)
 forest_classifier.fit(X_train,y_train)
 y_pred_forest=forest_classifier.predict(X_test)
 f1_score(y_test,y_pred_forest)
-
-
